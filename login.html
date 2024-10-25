@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Setting Signed Cookies</title>
+    <script>
+        function setSignedCookies() {
+            const params = new URLSearchParams(window.location.search);
+
+            // Retrieve the parameters
+            const policy = params.get('Policy');
+            const signature = params.get('Signature');
+            const keyPairId = params.get('Key-Pair-Id');
+            const expires = params.get('Expires');
+            const redirectTo = params.get('RedirectTo');
+
+            const cookieOptions = "; path=/; secure; SameSite=None";
+
+            if (policy) {
+                document.cookie = 'CloudFront-Policy=' + policy + cookieOptions;
+            }
+            if (signature) {
+                document.cookie = 'CloudFront-Signature=' + signature + cookieOptions;
+            }
+            if (keyPairId) {
+                document.cookie = 'CloudFront-Key-Pair-Id=' + keyPairId + cookieOptions;
+            }
+            if (expires) {
+                document.cookie = 'CloudFront-Expires=' + expires + cookieOptions;
+            }
+
+            // Redirect to index.html after setting cookies
+            window.location.href = redirectTo;
+        }
+
+        window.onload = setSignedCookies;
+    </script>
+</head>
+<body>
+    <p>Setting signed cookies... Please wait.</p>
+</body>
+</html>
+
